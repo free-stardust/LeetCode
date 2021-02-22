@@ -51,7 +51,43 @@
 
 
 struct ListNode* reverseKGroup(struct ListNode* head, int k){
+    struct ListNode *l, *pre, *prep, *p, *q;
+    int count = 0;
 
+    l = (struct ListNode*)malloc(sizeof(struct ListNode));
+    l->next = head;
+    pre = prep = l;
+    p = head;
+
+    while(p && p->next) {
+        q = p;
+        while (count < k && q) {
+            count++;
+            q = q->next;
+        }
+
+        if (count < k) break;
+        else count = 0;
+
+        while(count < k && p) {
+            q = p->next;
+            prep->next = q;
+            p->next = pre->next;
+            pre->next = p;
+            if (prep == pre) {
+                prep = prep->next;
+            }
+            p = q;
+            count++;
+        }
+        pre = prep;
+        count = 0;
+    }    
+
+    head = l->next;
+    free(l);
+
+    return head;
 }
 // @lc code=end
 
