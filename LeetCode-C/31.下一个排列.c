@@ -83,29 +83,29 @@ void nextPermutation(int *nums, int numsSize)
         return;
     else
     {
-        int nonDcendingIndex = -1;
+        int nonDecendIndex = -1;
         for (int i = numsSize - 2; i >= 0; i--)
         {
             if (nums[i] < nums[i + 1])
             {
-                nonDcendingIndex = i;
+                nonDecendIndex = i;
                 break;
             }
         }
-        if (nonDcendingIndex >= 0)
+        if (nonDecendIndex >= 0)
         {
             for (int i = numsSize - 1; i >= 0; i--)
             {
-                if (nums[i] > nums[nonDcendingIndex])
+                if (nums[i] > nums[nonDecendIndex])
                 {
-                    int temp = nums[nonDcendingIndex];
-                    nums[nonDcendingIndex] = nums[i];
+                    int temp = nums[nonDecendIndex];
+                    nums[nonDecendIndex] = nums[i];
                     nums[i] = temp;
                     break;
                 }
             }
         }
-        reverse(nums, nonDcendingIndex + 1, numsSize - 1);
+        reverse(nums, nonDecendIndex + 1, numsSize - 1);
         return;
     }
 }
