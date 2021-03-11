@@ -62,42 +62,18 @@
 
 // @lc code=start
 
-int partition(int *nums, int start, int end)
-{
-    if (start == end)
-        return start;
-    else
-    {
-        int index = (rand() % (end + 1 - start)) + start;
-        int low = start, high = end, num = nums[index];
-        int temp = nums[start];
-        nums[start] = nums[index];
-        nums[index] = temp;
-        while (low < high)
-        {
-            while (high > low && nums[high] >= num)
-                high--;
-            if (low < high)
-                nums[low] = nums[high];
-            while (low < high && nums[low] <= num)
-                low++;
-            if (low < high)
-                nums[high] = nums[low];
-        }
-        nums[low] = num;
-        return low;
-    }
-}
-
-void quickSort(int *nums, int start, int end)
-{
+void reverse(int* nums, int start, int end) {
     if (nums == NULL || start >= end || start < 0 || end < 0)
         return;
     else
     {
-        int position = partition(nums, start, end);
-        quickSort(nums, start, position);
-        quickSort(nums, position + 1, end);
+        int length = end - start + 1;
+        for (int i = start; i < start + length / 2; i++) 
+        {
+            int temp = nums[i];
+            nums[i] = nums[end - i + start];
+            nums[end - i + start] = temp;
+        }
     }
 }
 
@@ -125,21 +101,12 @@ void nextPermutation(int *nums, int numsSize)
                     int temp = nums[nonDcendingIndex];
                     nums[nonDcendingIndex] = nums[i];
                     nums[i] = temp;
-                    quickSort(nums, nonDcendingIndex + 1, numsSize - 1);
-                    return;
+                    break;
                 }
             }
         }
-        else
-        {
-            for (int i = 0; i < numsSize / 2; i++)
-            {
-                int temp = nums[i];
-                nums[i] = nums[numsSize - i - 1];
-                nums[numsSize - i - 1] = temp;
-            }
-            return;
-        }
+        reverse(nums, nonDcendingIndex + 1, numsSize - 1);
+        return;
     }
 }
 // @lc code=end
