@@ -75,12 +75,14 @@ int partition(int *nums, int start, int end)
     nums[low] = pivot;
     while (low < high)
     {
-        while(low < high && nums[high] >= pivot)
+        while (low < high && nums[high] >= pivot)
             high--;
-        if (low < high) nums[low] = nums[high];
-        while(low < high && nums[low] <= pivot)
+        if (low < high)
+            nums[low] = nums[high];
+        while (low < high && nums[low] <= pivot)
             low++;
-        if (low < high) nums[high] = nums[low];
+        if (low < high)
+            nums[high] = nums[low];
     }
     nums[low] = pivot;
     return low;
@@ -88,15 +90,15 @@ int partition(int *nums, int start, int end)
 
 void quickSort(int *nums, int start, int end)
 {
-    if (nums == NULL || start >= end )
+    if (nums == NULL || start >= end)
         return;
-    
+
     int pos = partition(nums, start, end);
     quickSort(nums, start, pos - 1);
     quickSort(nums, pos + 1, end);
 }
 
-int firstMissingPositive(int *nums, int numsSize)
+int firstMissingPositiveMine(int *nums, int numsSize)
 {
     if (nums == NULL || numsSize <= 0)
         return 1;
@@ -111,7 +113,34 @@ int firstMissingPositive(int *nums, int numsSize)
             num++;
         else if (nums[i] > num)
             return num;
-        
+
     return num;
+}
+
+int firstMissingPositive(int *nums, int numsSize)
+{
+    if (nums == NULL || numsSize <= 0)
+        return 1;
+
+    // 自己的解法，不符合题意
+    // firstMissingPositiveMine;
+
+    // 官方的解法
+    for (int i = 0; i < numsSize; i++)
+        if (nums[i] <= 0)
+            nums[i] = numsSize + 1;
+    
+    for (int i = 0; i < numsSize; i++)
+    {
+        int num = abs(nums[i]);
+        if (num <= numsSize)
+            nums[num - 1] = -abs(nums[num - 1]);
+    }
+
+    for (int i = 0; i < numsSize; i++)
+        if (nums[i] > 0)
+            return i + 1;
+    
+    return numsSize + 1;
 }
 // @lc code=end
