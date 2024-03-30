@@ -115,7 +115,7 @@ bool isMatch(char *s, char *p)
 
 int main(int argc, char *argv[])
 {   
-    char *s = "aab", *p = "c*a*b";
+    char *s = "aaaaaaaaaaaaaaaaaaab", *p = "a*a*a*a*a*a*a*a*a*a*";
     bool result = isMatch(s, p);
     if (result) 
         printf("true\n");
