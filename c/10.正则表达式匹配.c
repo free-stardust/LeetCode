@@ -113,10 +113,13 @@ bool isMatch(char *s, char *p)
         return isMatchCore(s, p);
 }
 
-// int main(int argc, char *argv[])
-// {   
-//     char *s = "aab", *p = "c*a*b";
-//     bool result = isMatch(s, p);
-//     printf("%d\n", result);
-// }
+int main(int argc, char *argv[])
+{   
+    char *s = "aab", *p = "c*a*b";
+    bool result = isMatch(s, p);
+    if (result) 
+        printf("true\n");
+    else
+        printf("false\n");
+}
 // @lc code=end
