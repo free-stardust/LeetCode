@@ -76,6 +76,10 @@
  */
 
 // @lc code=start
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdio.h>
 
 bool isMatchCore(char *s, char *p)
 {
@@ -108,4 +112,11 @@ bool isMatch(char *s, char *p)
     else
         return isMatchCore(s, p);
 }
+
+// int main(int argc, char *argv[])
+// {   
+//     char *s = "aab", *p = "c*a*b";
+//     bool result = isMatch(s, p);
+//     printf("%d\n", result);
+// }
 // @lc code=end
