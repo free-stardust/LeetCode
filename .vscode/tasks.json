@@ -8,6 +8,8 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
+				"-fexec-charset=GBK",
+				"-finput-charset=UTF-8",
 				"${file}",
 				"-o",
 				"${fileDirname}\\solution.exe"
