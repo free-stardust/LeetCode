@@ -54,6 +54,6 @@
         "sml": "cd $dir && sml $fileName",
         "mojo": "mojo run"
     },
-    "editor.fontSize": 18,
-    "terminal.integrated.fontSize": 17
+    "editor.fontSize": 19,
+    "terminal.integrated.fontSize": 18
 }
