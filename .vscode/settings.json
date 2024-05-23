@@ -1,3 +1,9 @@
 {
-    "cmake.options.statusBarVisibility": "icon"
+    "cmake.options.statusBarVisibility": "icon",
+    "editor.fontFamily": "JetBrains Mono NL, Noto Sans S Chinese Regular",
+    "terminal.integrated.fontFamily": "JetBrainsMono NF, Noto Sans S Chinese Regular",
+    "debug.console.fontSize": 19,
+    "markdown.preview.fontSize": 18,
+    "markdown.preview.fontFamily": "-apple-system, 'Noto Sans S Chinese Regular' , BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
+    "editor.fontSize": 19
 }
