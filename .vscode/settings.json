@@ -5,5 +5,35 @@
     "debug.console.fontSize": 19,
     "markdown.preview.fontSize": 18,
     "markdown.preview.fontFamily": "-apple-system, 'Noto Sans S Chinese Regular' , BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif",
-    "editor.fontSize": 19
+    "editor.fontSize": 19,
+    "leetcode-problem-rating.includeTemplates": [
+        {
+            "language": "cpp",
+            "template": [
+                "using namespace std;",
+                "#include <algorithm>",
+                "#include <array>",
+                "#include <bitset>",
+                "#include <climits>",
+                "#include <deque>",
+                "#include <functional>",
+                "#include <iostream>",
+                "#include <list>",
+                "#include <queue>",
+                "#include <stack>",
+                "#include <tuple>",
+                "#include <unordered_map>",
+                "#include <unordered_set>",
+                "#include <utility>",
+                "#include <vector>"
+            ]
+        },
+        {
+            "language": "python3",
+            "template": [
+                "from typing import List, Tuple",
+                "from typing import Optional",
+            ]
+        }
+    ]
 }
