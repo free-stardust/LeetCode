@@ -33,6 +33,7 @@
             "template": [
                 "from typing import List, Tuple",
                 "from typing import Optional",
+                "from heapq import heapify, heappop, heappush",
             ]
         }
     ]
