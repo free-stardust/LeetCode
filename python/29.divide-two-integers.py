@@ -62,9 +62,18 @@ class Solution:
             return INT_MAX
         a, b, res = abs(dividend), abs(divisor), 0
         for i in range(31, -1, -1):
-            # 2^i * b <= a 换句话说 a/b = 2^i + (a-2^i*b)/b
-            # 这里的原理是由于直接取整数，所以 a/b = 2^i + (a-2^i*b)/b 中的后半部分只要
-            # 小于等于 1 就会被舍去，而前面的 2^i 累加起来则刚好是整数部分
+            # 令 a = dividend, b = divisor
+            # 1.先以 10 进制为例进行理解：
+            # sum = b * 10^k1 + b * 10^k2 + ... + b * 10^kn, sum <= a
+            # remainder = a - sum, remainder < b, 故 remainder / b < 1
+            # 故有 quotient = 10^k1 + 10^k2 + ... + 10^kn
+            # 2.以 2 进制理解
+            # sum = b * 2^k1 + b * 2^k2 + ... + 2 * 10^kn, sum <= a， k1,...,kn > 0
+            # remainder = a - sum, remainder < b, 故 remainder / b < 1
+            # 故有 quotient = 2^k1 + 2^k2 + ... + 2^kn
+            # 3.之所以这里用 2 进制，是因为计算机存储是二进制的，如果用其他进制，则需要乘除法，
+            # 但题目规定不能用乘除法，因此需要基于二进制本身进行处理，而二进制的移位操作对应
+            # 的即为乘除法
             if (b << i) <= a:
                 res += 1 << i
                 a -= b << i
@@ -81,8 +90,6 @@ class Solution:
         
         if divisor == INT_MIN:
             return 1 if dividend == INT_MIN else 0
-
-        
 
         return res
 
