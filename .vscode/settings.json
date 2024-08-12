@@ -32,6 +32,8 @@
             "language": "python3",
             "template": [
                 "import copy",
+                "import collections",
+                "from collections import namedtuple",
                 "from typing import List, Tuple",
                 "from typing import Optional",
                 "from heapq import heapify, heappop, heappush",
