@@ -33,6 +33,7 @@
             "template": [
                 "import copy",
                 "import collections",
+                "import random",
                 "from collections import namedtuple",
                 "from typing import List, Tuple",
                 "from typing import Optional",

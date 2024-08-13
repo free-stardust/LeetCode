@@ -86,7 +86,7 @@ class Solution:
                 self.iSum = iSum
                 self.mSum = mSum
 
-        def pushUp(l: Status, r: Status) -> Status:
+        def push_up(l: Status, r: Status) -> Status:
             iSum = l.iSum + r.iSum
             lSum = max(l.lSum, l.iSum + r.lSum)
             rSum = max(l.rSum + r.iSum, r.rSum)
@@ -101,7 +101,7 @@ class Solution:
             lSub = get(nums, l, m)
             rSub = get(nums, m + 1, r)
 
-            return pushUp(lSub, rSub)
+            return push_up(lSub, rSub)
 
         return get(nums, 0, len(nums) - 1).mSum
 
