@@ -119,10 +119,30 @@ from heapq import heapify, heappop, heappush
 # @lc code=start
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        return ""
+        stack = []
+
+        names = path.split("/")
+
+        for name in names:
+            if name == "..":
+                if stack:
+                    stack.pop()
+            elif name and name != ".":
+                stack.append(name)
+
+        return "/" + "/".join(stack)
 # @lc code=end
 
-
+tests = ["/home/", "/home//foo/", "/home/user/Documents/../Pictures", "/../",
+         "/.../a/../b/c/../d/./"]
+ans = ["/home", "/home/foo", "/home/user/Pictures", "/", "/.../b/d"]
+for i,(t,a) in enumerate(zip(tests, ans)):
+    res = Solution().simplifyPath(t)
+    print(f"test case {i+1}:\n"
+          f"\ttest = \"{t}\";\n"
+          f"\tans = \"{a}\";\n"
+          f"\tres = \"{res}\";\n"
+          f"\t{a == res}.")
 
 #
 # @lcpr case=start
