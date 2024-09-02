@@ -35,6 +35,7 @@
                 "import collections",
                 "import random",
                 "import math",
+                "from functools import reduce",
                 "from collections import namedtuple",
                 "from typing import List, Tuple",
                 "from typing import Optional",
