@@ -69,7 +69,7 @@ class Solution:
         for j in range(1, k + 2):
             f[j][0] = 0
         for p in prices:
-            for j in range(k + 1, 0, -1):
+            for j in range(k + 1, 0, -1):  # 注意这里是从 k+1 迭代到 1，而 0 是不合法
                 f[j][0] = max(f[j][0], f[j][1] + p)
                 f[j][1] = max(f[j][1], f[j - 1][0] - p)
         return f[-1][0]
