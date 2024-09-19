@@ -77,12 +77,12 @@ class Solution:
             ans += min(left_max[i], right_max[i]) - height[i]
 
         return ans
-    
+
     def use_stack(self, height: List[int]) -> int:
         ans = 0
         stack = list()
 
-        for i,h in enumerate(height):
+        for i, h in enumerate(height):
             while stack and h > height[stack[-1]]:
                 top = stack.pop()
                 if not stack:
@@ -94,7 +94,7 @@ class Solution:
             stack.append(i)
 
         return ans
-    
+
     def use_double_point(self, height: List[int]) -> int:
         ans = 0
         left, right = 0, len(height) - 1
