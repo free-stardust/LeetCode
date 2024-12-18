@@ -42,5 +42,11 @@
                 "from heapq import heapify, heappop, heappush",
             ]
         }
-    ]
+    ],
+    "leetcode-problem-rating.filePath": {
+        "default": {
+            "folder": "${language}",
+            "filename": "${id}.${kebab-case-name}.${ext}"
+        },
+    }
 }
