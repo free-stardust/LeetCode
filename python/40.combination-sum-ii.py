@@ -65,23 +65,45 @@ from heapq import heapify, heappop, heappush
 # @lc code=start
 class Solution:
 
+    def solution1(self, nums: List[int], target: int) -> List[List[int]]:
+        res = []
+        nums.sort()
+
+        def dfs(cur_res, target, nexts) -> None:
+            if target == 0:
+                res.append(cur_res)
+                return
+
+            for i in range(len(nexts)):
+                if nexts[i] > target or (i > 0 and nexts[i] == nexts[i - 1]):
+                    continue
+                dfs(cur_res + [nexts[i]], target - nexts[i], nexts[i + 1:])
+
+        dfs([], target, nums)
+        return res
+
+    def solution2(self, nums: List[int], target: int) -> List[List[int]]:
+        res = []
+        nums.sort()
+        l = len(nums)
+
+        def dfs(cur_res, target, index) -> None:
+            if target == 0:
+                res.append(cur_res)
+                return
+
+            for i in range(index, l):
+                if nums[i] > target or (i > index and nums[i] == nums[i - 1]):
+                    continue
+                dfs(cur_res + [nums[i]], target - nums[i], i + 1)
+
+        dfs([], target, 0)
+        return res
+
     def combinationSum2(self, candidates: List[int],
                         target: int) -> List[List[int]]:
-        def dfs(nexts, cur_res, ans, target) -> None:
-            if target == 0:
-                ans.append(cur_res)
-                return
-            
-            for i in range(len(nexts)):
-                if nexts[i] > target or (i > 0 and nexts[i] == nexts[i-1]):
-                    continue                
-                dfs(nexts[i+1:], cur_res + [nexts[i]], ans, target-nexts[i])
-
-        ans = []
-        candidates.sort()
-        dfs(candidates, [], ans, target)
-
-        return ans
+        # return self.solution1(candidates, target)
+        return self.solution2(candidates, target)
 
 
 # @lc code=end

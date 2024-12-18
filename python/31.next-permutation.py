@@ -103,6 +103,9 @@ class Solution:
             nums[i] = nums[nums_len - i + j]
             nums[nums_len - i + j] = tmp
 
+        # nums[j + 1:] = sorted(nums[j + 1:])
+
+
 # @lc code=end
 
 tests = [[1, 2, 3], [3, 2, 1], [1, 1, 5], [1, 2], [2, 1, 3, 4, 1]]

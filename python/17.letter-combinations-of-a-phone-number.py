@@ -62,7 +62,36 @@ from torch import le
 # @lc code=start
 class Solution:
 
-    def letterCombinations(self, digits: str) -> List[str]:
+    def letterCombinations1(self, digits: str) -> List[str]:
+        MAPPING = {
+            2: "abc",
+            3: "def",
+            4: "ghi",
+            5: "jkl",
+            6: "mno",
+            7: "pqrs",
+            8: "tuv",
+            9: "wxyz"
+        }
+
+        n = len(digits)
+        if n == 0:
+            return []
+        ans = []
+        path = [''] * n  # 本题 path 长度固定为 n
+
+        def dfs(i: int) -> None:
+            if i == n:
+                ans.append(''.join(path))
+                return
+            for c in MAPPING[int(digits[i])]:
+                path[i] = c  # 直接覆盖
+                dfs(i + 1)
+
+        dfs(0)
+        return ans
+
+    def letterCombinations2(self, digits: str) -> List[str]:
         if len(digits) == 0:
             return []
 
@@ -99,6 +128,10 @@ class Solution:
             ans.append(tmp_ans)
         return ans
 
+    def letterCombinations(self, digits: str) -> List[str]:
+        return self.letterCombinations1(digits)
+        # return self.letterCombinations2(digits)
+
 
 # @lc code=end
 
@@ -106,7 +139,7 @@ strs = ["23", "", "2", "9", "234"]
 ans = [["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"], [],
        ["a", "b", "c"], ["w", "x", "y", "z"], []]
 for s, a in zip(strs, ans):
-    res = Solution().letterCombinations(s)
+    res = Solution().letterCombinations1(s)
     print(f"s = \"{s}\": \n\tans = {a};\n\tres = {res};\n\t{a == res}.")
 
 #

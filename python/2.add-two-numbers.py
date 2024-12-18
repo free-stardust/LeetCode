@@ -91,16 +91,16 @@ class Solution:
 
         l1.val += l2.val  # 计算 l1 第一个元素和 l2 第一个元素的和并存于 l1 中
         if l1.val >= 10:  # 如果大于等于 10 则将当前 l1 的第一个节点和后续节点看作两个列表进行递归计算
-            l1.next = self.addTwoNumbers(ListNode(l1.val // 10), l1.next)
+            l1.next = self.__recursion__(ListNode(l1.val // 10), l1.next)
             l1.val %= 10
 
-        l1.next = self.addTwoNumbers(l1.next, l2.next)  # 继续 l1 和 l2 的剩余计算
+        l1.next = self.__recursion__(l1.next, l2.next)  # 继续 l1 和 l2 的剩余计算
         return l1
 
     def addTwoNumbers(self, l1: Optional[ListNode],
                       l2: Optional[ListNode]) -> Optional[ListNode]:
-        return self.__traverse__(l1, l2)
-        # return self.__recursion__(l1, l2)
+        # return self.__traverse__(l1, l2)
+        return self.__recursion__(l1, l2)
 
 
 # @lc code=end
