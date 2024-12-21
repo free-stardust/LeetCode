@@ -73,9 +73,6 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        return dp_solution(s);
-    }
 
     int official_solution(string s) {
         unordered_set<char> set;
@@ -120,6 +117,26 @@ public:
             max_len = max(max_len, tmp);
         }
         return max_len;
+    }
+
+    int slide_win(string s) {
+        int n = s.length(), ans = 0, left = 0;
+        unordered_set<char> window;
+        for (int right = 0; right < n; right++) {
+            char c = s[right];
+            while (window.find(c) != window.end()) {
+                window.erase(s[left]);
+                left++;
+            }
+            window.insert(c);
+            ans = max(ans, right - left + 1);
+        }
+        return ans;        
+    }
+
+    int lengthOfLongestSubstring(string s) {
+        return dp_solution(s);
+        // return slide_win(s);
     }
 };
 // @lc code=end

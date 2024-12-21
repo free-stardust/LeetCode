@@ -73,9 +73,6 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
-        return official_solution2(nums1, nums2);
-    }
 
     double official_solution1(vector<int> &nums1, vector<int> &nums2) {
         int totalLength = nums1.size() + nums2.size();
@@ -143,6 +140,32 @@ public:
             }
         }
         return (m + n) % 2 == 0 ? (median1 + median2) / 2.0 : median1;
+    }
+
+    double zero_xf3_double_point(vector<int> &nums1, vector<int> &nums2) {
+        if (nums1.size() > nums2.size()) swap(nums1, nums2);
+
+        int len1 = nums1.size(), len2 = nums2.size();
+        nums1.insert(nums1.begin(), INT_MIN);
+        nums2.insert(nums2.begin(), INT_MIN);
+        nums1.push_back(INT_MAX);
+        nums2.push_back(INT_MAX);
+
+        int i = 0, j = (len1 + len2 + 1) / 2;
+        while (true) {
+            if (nums1[i] <= nums2[j + 1] && nums1[i + 1] > nums2[j]) {
+                int max1 = max(nums1[i], nums2[j]);
+                int min2 = min(nums1[i + 1], nums2[j + 1]);
+                return (len1 + len2) & 1 ? max1 : (max1 + min2) / 2.0;
+            }
+            i++;
+            j--;
+        }
+    }
+
+    double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
+        // return official_solution2(nums1, nums2);
+        return zero_xf3_double_point(nums1, nums2);
     }
 };
 // @lc code=end

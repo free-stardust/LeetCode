@@ -53,6 +53,7 @@
  *
  */
 
+
 // @lcpr-template-start
 #include <algorithm>
 #include <array>
@@ -72,6 +73,21 @@
 #include <vector>
 using namespace std;
 // @lcpr-template-end
+
+ struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() :
+        val(0), next(nullptr) {
+    }
+    ListNode(int x) :
+        val(x), next(nullptr) {
+    }
+    ListNode(int x, ListNode *next) :
+        val(x), next(next) {
+    }
+};
+
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -83,23 +99,11 @@ using namespace std;
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-// struct ListNode {
-//     int val;
-//     ListNode *next;
-//     ListNode() :
-//         val(0), next(nullptr) {
-//     }
-//     ListNode(int x) :
-//         val(x), next(nullptr) {
-//     }
-//     ListNode(int x, ListNode *next) :
-//         val(x), next(next) {
-//     }
-// };
 
 class Solution {
 public:
-    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
+
+    ListNode *solution1(ListNode *l1, ListNode *l2) {
         ListNode *head = nullptr, *tail = nullptr;
         int sum = 0, carry = 0;
         while (l1 || l2) {
@@ -117,6 +121,24 @@ public:
         if (carry != 0)
             tail->next = new ListNode(carry);
         return head;
+    }
+
+    ListNode *solution2(ListNode *l1, ListNode *l2) {
+        if (l1 == nullptr) return l2;
+        if (l2 == nullptr) return l1;
+
+        l1->val += l2->val;
+        if (l1->val >= 10) {
+            l1->next = this->solution2(new ListNode(l1->val / 10), l1->next);
+            l1->val %= 10;
+        }
+        l1->next = this->solution2(l1->next, l2->next);
+        return l1;
+    }
+
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
+        // return this->solution1(l1, l2);
+        return this->solution1(l1, l2);
     }
 };
 // @lc code=end
