@@ -172,12 +172,42 @@ class Solution:
             i += 1
             j -= 1
 
+    def zero_x3f_binary(self, a: List[int], b: List[int]) -> float:
+        if len(a) > len(b):
+            a, b = b, a
+
+        m, n = len(a), len(b)
+        # 循环不变量：a[left] <= b[j+1]
+        # 循环不变量：a[right] > b[j+1]
+        left, right = -1, m
+        while left + 1 < right:  # 开区间 (left, right) 不为空
+            i = (left + right) // 2
+            j = (m + n - 3) // 2 - i
+            if a[i] <= b[j + 1]:
+                left = i  # 缩小二分区间为 (i, right)
+            else:
+                right = i  # 缩小二分区间为 (left, i)
+
+        # 此时 left 等于 right-1
+        # a[left] <= b[j+1] 且 a[right] > b[j'+1] = b[j]，所以答案是 i=left
+        i = left
+        j = (m + n - 3) // 2 - i
+        print((i, j))
+        ai = a[i] if i >= 0 else -math.inf
+        bj = b[j] if j >= 0 else -math.inf
+        ai1 = a[i + 1] if i + 1 < m else math.inf
+        bj1 = b[j + 1] if j + 1 < n else math.inf
+        max1 = max(ai, bj)
+        min2 = min(ai1, bj1)
+        return max1 if (m + n) % 2 else (max1 + min2) / 2
+
     def findMedianSortedArrays(self, nums1: List[int],
                                nums2: List[int]) -> float:
         # return self.normalSolution(nums1, nums2)
         # return self.getMedianFromKth(nums1, nums2)
         # return self.divideArrays(nums1, nums2)
-        return self.zero_xf3_double_point(nums1, nums2)
+        # return self.zero_xf3_double_point(nums1, nums2)
+        return self.zero_x3f_binary(nums1, nums2)
 
 
 # @lc code=end
