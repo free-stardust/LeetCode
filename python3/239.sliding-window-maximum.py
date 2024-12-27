@@ -129,10 +129,51 @@ class Solution:
 
         return ans
 
+    def use_monotinic_queue(self, nums: List[int], k: int) -> List[int]:
+        nums_len = len(nums)
+        q = collections.deque()
+
+        for i in range(k):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+
+        ans = [nums[q[0]]]
+
+        for i in range(k, nums_len):
+            while q and nums[i] >= nums[q[-1]]:
+                q.pop()
+            q.append(i)
+            while q[0] <= i - k:
+                q.popleft()
+            ans.append(nums[q[0]])
+
+        return ans
+
+    def use_monotinic_queue2(self, nums: List[int], k: int) -> List[int]:
+        q = []
+        res = []
+
+        for i in range(len(nums)):
+            while q:
+                if nums[i] > q[-1][0]:
+                    q.pop()
+                elif i - q[0][1] >= k:
+                    q = q[1:]
+                else:
+                    break
+            q.append((nums[i], i))
+
+            if i >= k - 1:
+                res.append(q[0][0])
+        return res
+
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         # return self.use_heap(nums, k)
         # return self.use_deque(nums, k)
-        return self.use_prefix_sufix(nums, k)
+        # return self.use_prefix_sufix(nums, k)
+        return self.use_monotinic_queue(nums, k)
+        # return self.use_monotinic_queue2(nums, k)
 
 
 # @lc code=end

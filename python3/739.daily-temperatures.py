@@ -80,6 +80,9 @@ class Solution:
 
 # @lc code=end
 
+a = [1, 2, 3, 4]
+print(a.pop())
+
 #
 # @lcpr case=start
 # [73,74,75,71,69,72,76,73]\n
