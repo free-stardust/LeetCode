@@ -72,8 +72,17 @@ class Solution:
             if res in nums[i + 1:]:
                 return [i, nums[i + 1:].index(res) + i + 1]
         return []
-    
+
     def __hashtable__(self, nums: List[int], target: int) -> List[int]:
+        dict = {}
+        for i, num in enumerate(nums):
+            res = target - num
+            if res in dict:
+                return [dict[res], i]
+            dict[num] = i
+        return []
+
+    def solution(self, nums: List[int], target: int) -> List[int]:
         dict = {}
         for i, num in enumerate(nums):
             res = target - num

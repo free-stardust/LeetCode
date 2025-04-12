@@ -201,13 +201,32 @@ class Solution:
         min2 = min(ai1, bj1)
         return max1 if (m + n) % 2 else (max1 + min2) / 2
 
+    def solution(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            nums1, nums2 = nums2, nums1
+
+        len1, len2 = len(nums1), len(nums2)
+        nums1 = [-math.inf] + nums1 + [math.inf]
+        nums2 = [-math.inf] + nums2 + [math.inf]
+
+        i, j = 0, (len1 + len2 + 1) // 2
+        while True:
+            if nums1[i] <= nums2[j + 1] and nums1[i + 1] > nums2[j]:
+                max1 = max(nums1[i], nums2[j])
+                min1 = min(nums1[i + 1], nums2[j + 1])
+                return max1 if (len1 + len2) & 1 else (max1 + min1) / 2
+
+            i += 1
+            j -= 1
+
     def findMedianSortedArrays(self, nums1: List[int],
                                nums2: List[int]) -> float:
         # return self.normalSolution(nums1, nums2)
         # return self.getMedianFromKth(nums1, nums2)
         # return self.divideArrays(nums1, nums2)
         # return self.zero_xf3_double_point(nums1, nums2)
-        return self.zero_x3f_binary(nums1, nums2)
+        # return self.zero_x3f_binary(nums1, nums2)
+        return self.solution(nums1, nums2)
 
 
 # @lc code=end

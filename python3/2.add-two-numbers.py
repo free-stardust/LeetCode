@@ -97,6 +97,19 @@ class Solution:
         l1.next = self.__recursion__(l1.next, l2.next)  # 继续 l1 和 l2 的剩余计算
         return l1
 
+    def solution(self, l1: Optional[ListNode],
+                 l2: Optional[ListNode]) -> Optional[ListNode]:
+        if not l1: return l2
+        if not l2: return l1
+
+        l1.val += l2.val
+        if l1.val >= 10:
+            l1.next = self.solution(ListNode(l1.val // 10), l1.next)
+            l1.val %= 10
+
+        l1.next = self.solution(l1.next, l2.next)
+        return l1
+
     def addTwoNumbers(self, l1: Optional[ListNode],
                       l2: Optional[ListNode]) -> Optional[ListNode]:
         # return self.__traverse__(l1, l2)
