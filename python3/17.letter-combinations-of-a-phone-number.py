@@ -128,9 +128,38 @@ class Solution:
             ans.append(tmp_ans)
         return ans
 
+    def solution(self, digits: str) -> List[str]:
+        if len(digits) == 0:
+            return []
+
+        ans = []
+        n = len(digits)
+        digit = {
+            2: 'abc',
+            3: 'def',
+            4: 'ghi',
+            5: 'jkl',
+            6: 'mno',
+            7: 'pqrs',
+            8: 'tuv',
+            9: 'wxyz'
+        }
+        path = [''] * n
+
+        def dfs(index):
+            if index == n:
+                return ans.append(''.join(path))
+            for c in digit[int(digits[index])]:
+                path[index] = c
+                dfs(index + 1)
+
+        dfs(0)
+        return ans
+
     def letterCombinations(self, digits: str) -> List[str]:
-        return self.letterCombinations1(digits)
+        # return self.letterCombinations1(digits)
         # return self.letterCombinations2(digits)
+        return self.solution(digits)
 
 
 # @lc code=end
