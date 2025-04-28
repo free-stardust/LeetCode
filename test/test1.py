@@ -9,10 +9,9 @@ def func(s):
     for c in s:
         if c not in sub_s:
             sub_s += c
+            res = max(len(sub_s), res)
         else:
             sub_s = sub_s[sub_s.index(c) + 1:] + c
-
-        res = max(len(sub_s), res)
 
     return res
 
