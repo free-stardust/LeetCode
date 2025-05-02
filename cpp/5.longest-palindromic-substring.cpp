@@ -64,13 +64,82 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
+    pair<int, int> expand_around_center(const string &s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        return {left + 1, right - 1};
+    }
+
+    string expand_around_center_main(string s){
+        int start = 0, end = 0;
+
+        for (int i = 0; i < s.size(); ++i) {
+            pair<int, int> p1 = expand_around_center(s, i, i);
+            pair<int, int> p2 = expand_around_center(s, i, i + 1);
+
+            if (p1.second - p1.first > end - start) {
+                start = p1.first;
+                end = p1.second;
+            }
+
+            if (p2.second - p2.first > end - start) {
+                start = p2.first;
+                end = p2.second;
+            }
+            
+        }
+
+        return s.substr(start, end - start + 1);
+    }
+
+    string dp(string s) {
+        int s_len = s.size();
+        if (s_len < 2)  return s;
+
+        int max_len = 1, begin = 0;
+        vector<vector<bool>> dp(s_len, vector<bool>(s_len));
+
+        for (int i = 0; i < s_len; ++i) {
+            dp[i][i] = true;
+        }
+
+        for (int L = 2; L <= s_len; ++L) {
+            for (int i = 0; i < s_len; ++i) {
+                int j = i + L - 1;
+                if (j >= s_len) break;
+                
+                if (s[i] != s[j])
+                    dp[i][j] = false;
+                else {
+                    if (j - i < 3) {
+                        dp[i][j] = true;
+                    } else {
+                        dp[i][j] = dp[i+1][j-1];
+                    }
+                }
+
+                if (dp[i][j] && j - i + 1 > max_len) {
+                    max_len = j - i + 1;
+                    begin = i;
+                }
+
+            }
+        }
+
+        return s.substr(begin, max_len);
+    }
     string longestPalindrome(string s) {
-        return "";
+        // return dp(s);
+        return expand_around_center_main(s);
     }
 };
 // @lc code=end
 
-
+int main() {
+    return 0;
+ }
 
 /*
 // @lcpr case=start
