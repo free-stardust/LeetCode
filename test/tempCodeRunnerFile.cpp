@@ -1,0 +1,1 @@
+cin.ignore(numeric_limits<streamsize>::max(), '\n');  // 更安全的清除方式

@@ -119,6 +119,23 @@ public:
         return max_len;
     }
 
+    int dp_solution2(string s) {
+        int res = 0, sub_len = 0, same = 0;
+        unordered_map<char, int> dic;
+
+        for (int i = 0; i < s.size(); ++i) {
+            if (dic.find(s[i]) == dic.end())
+                same = -1;
+            else
+                same = dic[s[i]];
+            dic[s[i]] = i;
+            sub_len = sub_len < i - same ? sub_len + 1 : i - same;
+            res = max(res, sub_len);
+        }
+        
+        return res;
+    }
+
     int slide_win(string s) {
         int n = s.length(), ans = 0, left = 0;
         unordered_set<char> window;
@@ -134,9 +151,28 @@ public:
         return ans;        
     }
 
+    int slide_win2(string s) {
+        int res = 0;
+        string sub_s = "";
+
+        for (char c : s) {
+            if(sub_s.find(c) == string::npos) {
+                sub_s += c;
+                res = max(static_cast<int>(sub_s.size()) , res);
+            } 
+            else {
+                sub_s = sub_s.substr(sub_s.find(c) + 1) + c;
+            }
+        }
+
+        return res;
+    }
+
     int lengthOfLongestSubstring(string s) {
-        return dp_solution(s);
+        // return dp_solution(s);
+        return dp_solution2(s);
         // return slide_win(s);
+        // return slide_win2(s);
     }
 };
 // @lc code=end

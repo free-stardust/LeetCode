@@ -69,7 +69,6 @@
         {
             "language": "cpp",
             "template": [
-                "using namespace std;",
                 "#include <algorithm>",
                 "#include <array>",
                 "#include <bitset>",
@@ -84,7 +83,8 @@
                 "#include <unordered_map>",
                 "#include <unordered_set>",
                 "#include <utility>",
-                "#include <vector>"
+                "#include <vector>",
+                "using namespace std;",
             ]
         },
         {
