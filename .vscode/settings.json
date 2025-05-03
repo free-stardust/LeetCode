@@ -114,5 +114,6 @@
         "java": false,
         "cpp": false
         // 在此添加您刷题时使用的其他编程语言，并设置为 false
-    }
+    },
+    "editor.formatOnSave": true
 }
