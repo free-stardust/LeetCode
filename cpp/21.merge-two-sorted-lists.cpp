@@ -96,21 +96,17 @@ public:
         if (list1 == nullptr) return list2;
         if (list2 == nullptr) return list1;
 
-        ListNode *dummy = new ListNode();
-        ListNode *p = dummy;
+        ListNode *head;
 
         if (list1->val <= list2->val) {
-            p->next = list1;
-            list1 = list1->next;
+            head = list1;
+            list1->next = mergeTwoLists(list1->next, list2);
         } else {
-            p->next = list2;
-            list2 = list2->next;
+            head = list2;
+            list2->next = mergeTwoLists(list1, list2->next);
         }
 
-        p = p->next;
-        p->next = mergeTwoLists(list1, list2);
-
-        return dummy->next;
+        return head;
     }
 };
 // @lc code=end

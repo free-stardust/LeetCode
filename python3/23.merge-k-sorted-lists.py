@@ -15,13 +15,13 @@
 # Testcase Example:  '[[1,4,5],[1,3,4],[2,6]]'
 #
 # 给你一个链表数组，每个链表都已经按升序排列。
-# 
+#
 # 请你将所有链表合并到一个升序链表中，返回合并后的链表。
-# 
-# 
-# 
+#
+#
+#
 # 示例 1：
-# 
+#
 # 输入：lists = [[1,4,5],[1,3,4],[2,6]]
 # 输出：[1,1,2,3,4,4,5,6]
 # 解释：链表数组如下：
@@ -32,57 +32,62 @@
 # ]
 # 将它们合并到一个有序链表中得到。
 # 1->1->2->3->4->4->5->6
-# 
-# 
+#
+#
 # 示例 2：
-# 
+#
 # 输入：lists = []
 # 输出：[]
-# 
-# 
+#
+#
 # 示例 3：
-# 
+#
 # 输入：lists = [[]]
 # 输出：[]
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # 提示：
-# 
-# 
+#
+#
 # k == lists.length
 # 0 <= k <= 10^4
 # 0 <= lists[i].length <= 500
 # -10^4 <= lists[i][j] <= 10^4
 # lists[i] 按 升序 排列
 # lists[i].length 的总和不超过 10^4
-# 
-# 
 #
-
+#
+#
 
 # @lcpr-template-start
 from heapq import heapify, heappop, heappush
 from typing import List, Tuple
 from typing import Optional
+
+
 # @lcpr-template-end
 # @lc code=start
 # Definition for singly-linked list.
 class ListNode:
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
 class Solution:
+
     def recursion1(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         lists_len = len(lists)
 
         if lists_len == 0:
             return None
-        
+
         if lists_len == 1:
             return lists[0]
-        
+
         node = None
         if lists_len == 2:
             left = lists[0]
@@ -93,27 +98,28 @@ class Solution:
                 return left
             elif right and not left:
                 return right
-            
+
             if left.val <= right.val:
                 node = left
                 node.next = self.recursion1([left.next, right])
             else:
                 node = right
-                node.next = self.recursion1([left,right.next])
+                node.next = self.recursion1([left, right.next])
 
         if lists_len > 2:
             mid = lists_len // 2
             node1 = self.recursion1(lists[:mid])
             node2 = self.recursion1(lists[mid:])
             node = self.recursion1([node1, node2])
-            
+
         return node
-    
+
     def traverse1(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists:
             return None
-        
-        def merge(l1:Optional[ListNode], l2:Optional[ListNode]) -> Optional[ListNode]: 
+
+        def merge(l1: Optional[ListNode],
+                  l2: Optional[ListNode]) -> Optional[ListNode]:
             p = head = ListNode()
 
             while l1 and l2:
@@ -124,18 +130,18 @@ class Solution:
                     p.next = l2
                     l2 = l2.next
                 p = p.next
-            
+
             p.next = l1 or l2
             return head.next
-        
+
         n = len(lists)
         while n > 1:
             mid = n >> 1
             for i in range(mid):
-                lists[i] = merge(lists[i], lists[n-i-1])
-            n = mid + n % 2    
+                lists[i] = merge(lists[i], lists[n - i - 1])
+            n = mid + n % 2
         return lists[0]
-    
+
     def heap1(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         cur = head = ListNode()  # 哨兵节点，作为合并后链表头节点的前一个节点
         heads = [h for h in lists if h]  # 初始把所有链表的头节点入堆
@@ -147,32 +153,96 @@ class Solution:
             cur.next = node  # 合并到新链表中
             cur = cur.next  # 准备合并下一个节点
         return head.next  # 哨兵节点的下一个节点就是新链表的头节点
-    
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+
+    def merge_two_list(self, l1: ListNode, l2: ListNode):
+        if not l1: return l2
+        if not l2: return l1
+
+        head = None
+        if l1.val <= l2.val:
+            head = l1
+            l1.next = self.merge_two_list(l1.next, l2)
+        else:
+            head = l2
+            l2.next = self.merge_two_list(l1, l2.next)
+
+        return head
+
+    def merge_tow_part(self, lists: List[Optional[ListNode]], left, right):
+        count = right - left + 1
+
+        if count == 0: return None
+        if count == 1: return lists[left]
+        if count == 2: return self.merge_two_list(lists[left], lists[right])
+
+        l1 = self.merge_tow_part(lists, left, left + count // 2)
+        l2 = self.merge_tow_part(lists, left + count // 2 + 1, right)
+
+        return self.merge_two_list(l1, l2)
+
+    def divide_and_conquer(self, lists: List[Optional[ListNode]]):
+
+        def merge_two_list(l1: ListNode, l2: ListNode):
+            if not l1: return l2
+            if not l2: return l1
+
+            head = None
+            if l1.val <= l2.val:
+                head = l1
+                l1.next = merge_two_list(l1.next, l2)
+            else:
+                head = l2
+                l2.next = merge_two_list(l1, l2.next)
+
+            return head
+
+        def merge_tow_part(lists: List[Optional[ListNode]], left, right):
+            count = right - left + 1
+
+            if count == 0: return None
+            if count == 1: return lists[left]
+            if count == 2:
+                return merge_two_list(lists[left], lists[right])
+
+            l1 = merge_tow_part(lists, left, left + count // 2)
+            l2 = merge_tow_part(lists, left + count // 2 + 1, right)
+
+            return merge_two_list(l1, l2)
+
+        return merge_tow_part(lists, 0, len(lists) - 1)
+
+    def mergeKLists(self,
+                    lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         # return self.recursion1(lists)
-        return self.traverse1(lists)
+        # return self.traverse1(lists)
         # return self.heap1(lists)
+        # return self.merge_tow_part(lists, 0, len(lists) - 1)
+        return self.divide_and_conquer(lists)
+
+
 # @lc code=end
+
 
 def list_to_link(l: List[int]) -> Optional[ListNode]:
     l_len = len(l)
 
     if l_len == 0:
         return None
-    
+
     head = ListNode(l[0])
     point = head
 
-    for i in range(1,l_len):
+    for i in range(1, l_len):
         point.next = ListNode(l[i])
         point = point.next
 
     return head
 
-def link_to_list(lk:Optional[ListNode]) -> List[int]:
+
+def link_to_list(lk: Optional[ListNode]) -> List[int]:
     if lk is None:
         return []
-    
+
     l = []
     while lk:
         l.append(lk.val)
@@ -180,21 +250,23 @@ def link_to_list(lk:Optional[ListNode]) -> List[int]:
 
     return l
 
+
 def lists_to_links(lists: List[List[int]]) -> List[Optional[ListNode]]:
     ls_len = len(lists)
 
     if ls_len == 0:
         return []
-    
+
     lks = []
     for l in lists:
-        lks .append(list_to_link(l))
-    
+        lks.append(list_to_link(l))
+
     return lks
 
-tests = [[[1,4,5],[1,3,4],[2,6]], [], [[]]]
-ans = [[1,1,2,3,4,4,5,6], [],[]]
-for i,(t,a) in enumerate(zip(tests,ans)):
+
+tests = [[[1, 4, 5], [1, 3, 4], [2, 6]], [], [[]]]
+ans = [[1, 1, 2, 3, 4, 4, 5, 6], [], []]
+for i, (t, a) in enumerate(zip(tests, ans)):
     t_lk = lists_to_links(t)
     res = Solution().mergeKLists(t_lk)
     res_list = link_to_list(res)
@@ -218,4 +290,3 @@ for i,(t,a) in enumerate(zip(tests,ans)):
 # @lcpr case=end
 
 #
-
