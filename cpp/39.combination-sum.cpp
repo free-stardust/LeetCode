@@ -96,9 +96,6 @@ public:
                 }
                 sum -= candidates[i];
                 res.pop_back();
-
-                if (sum + candidates[i] > target)
-                    break;
             }
         };
 
