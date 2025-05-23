@@ -50,6 +50,16 @@ def func2(target: int, nums: List[int]):
     return res
 
 
+def func3(target: int, nums: List[int]):
+    dp = [1] + [0] * target
+
+    for num in nums:
+        for i in range(num, target + 1):
+            dp[i] += dp[i - num]
+
+    return dp[target]
+
+
 N = [1, 2, 3]
 for n in N:
     res = func(n)
@@ -59,5 +69,5 @@ print("********************************")
 
 tests = [[5, [1, 2, 4, 5]], [5, []], [5, [5]], [3, [1, 2, 3]]]
 for target, nums in tests:
-    res = func2(target, nums)
+    res = func3(target, nums)
     print(res)
