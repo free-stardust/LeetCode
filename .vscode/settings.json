@@ -1,4 +1,14 @@
 {
+    "terminal.integrated.profiles.linux": {
+      "Custom": {
+        "path": "zsh",
+        "args": [
+            "-c", 
+            "source ~/.zshrc && conda activate learn310 && exec zsh"
+        ]
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "Custom",
     "cmake.options.statusBarVisibility": "icon",
     "editor.fontFamily": "JetBrains Mono NL, Noto Sans S Chinese Regular",
     "terminal.integrated.fontFamily": "JetBrainsMono NF, Noto Sans S Chinese Regular",
