@@ -125,5 +125,10 @@
         "cpp": false
         // 在此添加您刷题时使用的其他编程语言，并设置为 false
     },
-    "editor.formatOnSave": true
+    "yapf.args": [
+        "--style",
+        "{based_on_style: pep8, indent_width: 4, column_limit: 115}"
+    ],
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
 }

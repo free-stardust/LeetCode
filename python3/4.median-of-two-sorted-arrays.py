@@ -74,8 +74,7 @@ class Solution:
         start1, start2 = 0, 0
         for i in range(lens // 2 + 1):
             left = right
-            if start1 < len1 and (start2 >= len2
-                                  or nums1[start1] < nums2[start2]):
+            if start1 < len1 and (start2 >= len2 or nums1[start1] < nums2[start2]):
                 right = nums1[start1]
                 start1 += 1
             else:
@@ -142,8 +141,7 @@ class Solution:
             num_right2 = infinty if j == len2 else nums2[j]
 
             if num_left1 <= num_right2:
-                median1, median2 = max(num_left1,
-                                       num_left2), min(num_right1, num_right2)
+                median1, median2 = max(num_left1, num_left2), min(num_right1, num_right2)
                 left = i + 1
             else:
                 right = i - 1
@@ -153,8 +151,7 @@ class Solution:
         else:
             return (median1 + median2) / 2
 
-    def zero_xf3_double_point(self, nums1: List[int],
-                              nums2: List[int]) -> float:
+    def zero_xf3_double_point(self, nums1: List[int], nums2: List[int]) -> float:
         if len(nums1) > len(nums2):
             nums1, nums2 = nums2, nums1
 
@@ -219,8 +216,7 @@ class Solution:
             i += 1
             j -= 1
 
-    def findMedianSortedArrays(self, nums1: List[int],
-                               nums2: List[int]) -> float:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         # return self.normalSolution(nums1, nums2)
         # return self.getMedianFromKth(nums1, nums2)
         # return self.divideArrays(nums1, nums2)
